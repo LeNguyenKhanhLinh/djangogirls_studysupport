@@ -166,11 +166,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Allow large payloads (e.g. rich text study notes, batch files, folder creation) up to 50MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
-ALLOWED_HOSTS = [
-    host.strip()
-    for host in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-    if host.strip()
-]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 import os
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
