@@ -170,3 +170,6 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 import os
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+CSRF_TRUSTED_ORIGINS = [
+    "https://djangogirls-studysupport.onrender.com",
+]
