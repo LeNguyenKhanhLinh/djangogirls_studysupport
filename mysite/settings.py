@@ -11,9 +11,11 @@ load_dotenv(BASE_DIR / ".env")
 
 # ================= SECURITY =================
 
-SECRET_KEY = 'django-insecure-=3#6$icdiknp$)b!1s#eov6the-x1@qhwl7-60^9rxks&8kaam'
+import os
 
-DEBUG = True
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-local-development-key")
+
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -164,3 +166,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Allow large payloads (e.g. rich text study notes, batch files, folder creation) up to 50MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+    if host.strip()
+]
+import os
+
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
