@@ -300,7 +300,7 @@
             {% csrf_token %}
             <input type="hidden" name="next" value="{% url 'notes:folder_list' %}">
             <div>
-                <input type="text" name="title" autocomplete="off" placeholder="Untitled" required
+                <input type="text" name="title" autocomplete="off" placeholder="Untitled"
                     class="w-full text-3xl font-bold border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-300 dark:placeholder-slate-600 bg-transparent dark:bg-transparent">
             </div>
 
