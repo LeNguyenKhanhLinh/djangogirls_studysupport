@@ -318,6 +318,7 @@ def folder_list(request):
     search_query = request.GET.get('q', '').strip()
     folders = Folder.objects.filter(owner=request.user).prefetch_related('notes')
     tags = Tag.objects.filter(owner=request.user)
+    unfoldered_notes = Note.objects.filter(owner=request.user, folder__isnull=True).prefetch_related('tags')
     
     if search_query:
         folders = folders.filter(name__icontains=search_query)
@@ -338,6 +339,7 @@ def folder_list(request):
         "folders/folder_list.html", 
         {
             "folders": folders,
+            "unfoldered_notes": unfoldered_notes,
             "tags": tags,
             "search_query": search_query,
         }

@@ -109,6 +109,31 @@
                     <td colspan="5" class="py-8 text-center text-slate-400 dark:text-slate-500 text-xs">No folders found in library.</td>
                 </tr>
                 {% endfor %}
+{% for note in unfoldered_notes %}
+<tr class="note-row-item cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 group transition select-none" onclick="window.location.href='{% url 'notes:note_detail' pk=note.pk %}'">
+    <td class="py-2 px-2 text-center hidden"></td>
+    <td class="py-2.5 px-3 font-medium text-slate-800 dark:text-slate-200">
+        <div class="flex items-center gap-2.5">
+            <i data-lucide="file-text" class="w-4 h-4 text-green-500"></i>
+            <span class="group-hover:text-blue-600 dark:group-hover:text-blue-400 font-semibold">{{ note.title }}</span>
+        </div>
+    </td>
+    <td class="py-2.5 px-3 text-slate-600 dark:text-slate-400 text-xs">
+        <div class="flex items-center gap-1.5">
+            <div class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold">{{ request.user.username|slice:":1"|upper }}</div>
+            <span>{{ request.user.username }}</span>
+        </div>
+    </td>
+    <td class="py-2.5 px-3 text-xs text-slate-500 dark:text-slate-400">{{ note.template_type|default:"blank" }}</td>
+    <td class="py-2.5 px-3 text-right text-xs">
+        <div class="flex items-center justify-end gap-2">
+            <a href="{% url 'notes:note_detail' pk=note.pk %}" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">View</a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr><td colspan="5" class="py-4 text-center text-slate-400 dark:text-slate-500 text-xs">No unfoldered notes.</td></tr>
+{% endfor %}
             </tbody>
         </table>
     </div>
