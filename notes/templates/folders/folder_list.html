@@ -68,7 +68,7 @@
                     </th>
                     <th class="py-2.5 px-3 font-normal w-5/12">Name</th>
                     <th class="py-2.5 px-3 font-normal">Owner</th>
-                    <th class="py-2.5 px-3 font-normal">Notes Count</th>
+                    <th class="py-2.5 px-3 font-normal">Date Modified</th>
                     <th class="py-2.5 px-3 font-normal text-right">Actions</th>
                 </tr>
             </thead>
@@ -93,7 +93,7 @@
                         </div>
                     </td>
                     <td class="py-2.5 px-3 text-xs text-slate-500 dark:text-slate-400">
-                        {{ folder.notes.count }} note{{ folder.notes.count|pluralize }}
+                        {{ folder.created_at|date:"M d, Y H:i" }}
                     </td>
                     <td class="py-2.5 px-3 text-right text-xs">
                         <div class="flex items-center justify-end gap-2">
@@ -124,7 +124,7 @@
             <span>{{ request.user.username }}</span>
         </div>
     </td>
-    <td class="py-2.5 px-3 text-xs text-slate-500 dark:text-slate-400">{{ note.template_type|default:"blank" }}</td>
+    <td class="py-2.5 px-3 text-xs text-slate-500 dark:text-slate-400">{{ note.updated_at|date:"M d, Y H:i" }}</td>
     <td class="py-2.5 px-3 text-right text-xs">
         <div class="flex items-center justify-end gap-2">
             <a href="{% url 'notes:note_detail' pk=note.pk %}" class="text-blue-600 dark:text-blue-400 hover:underline font-medium">View</a>
