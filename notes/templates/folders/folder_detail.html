@@ -31,16 +31,39 @@
             </div>
         </div>
 
-        <div class="flex items-center gap-2">
-            <button type="button" onclick="openFolderCreateNoteModal()" class="px-4 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md transition flex items-center gap-1.5">
-                <i data-lucide="file-plus" class="w-4 h-4"></i>
-                <span>+ New Note in Folder</span>
+        <div class="relative inline-block text-left" id="folder-new-button">
+          <div class="inline-flex rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition overflow-hidden divide-x divide-blue-500">
+            <button type="button" onclick="openFolderCreateNoteModal()" class="px-3 py-1.5 flex items-center gap-1 hover:bg-blue-700 transition focus:outline-none">
+              <i data-lucide="file-plus" class="w-4 h-4"></i>
+              <span>New Note</span>
             </button>
-            <button type="button" onclick="openFolderCreateSubfolderModal()" class="px-4 py-2 text-xs bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl font-semibold transition flex items-center gap-1.5 border border-slate-200 dark:border-slate-700">
-                <i data-lucide="folder-plus" class="w-4 h-4 text-blue-500"></i>
-                <span>+ New Subfolder</span>
+            <button type="button" onclick="toggleFolderNewDropdown(event)" class="px-1.5 py-1.5 hover:bg-blue-700 transition focus:outline-none" title="More options">
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
             </button>
+          </div>
+          <div id="folder-new-dropdown-menu" class="hidden absolute right-0 mt-1 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 z-30 text-xs">
+            <button type="button" onclick="openFolderCreateNoteModal(); hideFolderNewDropdown();" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2"><i data-lucide="file-plus" class="w-4 h-4 text-blue-500"></i> New Note</button>
+            <button type="button" onclick="openFolderCreateSubfolderModal(); hideFolderNewDropdown();" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2 border-t border-slate-100 dark:border-slate-700/60"><i data-lucide="folder-plus" class="w-4 h-4 text-blue-500"></i> New Subfolder</button>
+          </div>
         </div>
+        <script>
+          function toggleFolderNewDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('folder-new-dropdown-menu');
+            menu.classList.toggle('hidden');
+          }
+          function hideFolderNewDropdown() {
+            const menu = document.getElementById('folder-new-dropdown-menu');
+            menu.classList.add('hidden');
+          }
+          document.addEventListener('click', function(event) {
+            const menu = document.getElementById('folder-new-dropdown-menu');
+            const button = document.getElementById('folder-new-button');
+            if (menu && !menu.contains(event.target) && button && !button.contains(event.target)) {
+              menu.classList.add('hidden');
+            }
+          });
+        </script>
     </div>
 </div>
 {% endblock %}

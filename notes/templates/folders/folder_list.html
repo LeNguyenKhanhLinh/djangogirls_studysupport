@@ -27,7 +27,9 @@
                 <button type="button" onclick="openFolderModal(); hideFolderDropdown();" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2">
                     <i data-lucide="plus" class="w-3.5 h-3.5 text-blue-500"></i> New Folder
                 </button>
-                <button type="button" onclick="toggleFolderSelectionMode(); hideFolderDropdown();" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2 border-t border-slate-100 dark:border-slate-700/60">
+                <button type="button" onclick="openNoteModal(); hideFolderDropdown();" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2 border-t border-slate-100 dark:border-slate-700/60">
+    <i data-lucide="plus" class="w-3.5 h-3.5 text-blue-500"></i> New Note
+</button>
                     <i data-lucide="check-square" class="w-3.5 h-3.5 text-slate-400"></i> Select / Delete Folders
                 </button>
             </div>
@@ -72,7 +74,7 @@
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                 {% for folder in folders %}
-                <tr class="folder-row-item cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 group transition select-none" data-folder-name="{{ folder.name|lower }}" onclick="openExistingFolderDrawer('{{ folder.id }}', '{{ folder.name|escapejs }}', '{{ folder.parent.id }}', {{ folder.notes_json|default:'[]' }})">
+                <tr class="folder-row-item cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 group transition select-none" data-folder-name="{{ folder.name|lower }}" onclick="window.location.href='{% url 'notes:folder_detail' pk=folder.pk %}'">
                     <td class="py-2 px-2 text-center folder-checkbox-col hidden" onclick="event.stopPropagation()">
                         <input type="checkbox" name="folder_ids" value="{{ folder.id }}" onchange="updateFolderBulkState()" class="folder-item-checkbox rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 cursor-pointer">
                     </td>

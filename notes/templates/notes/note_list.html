@@ -84,9 +84,9 @@
                         class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2">
                         <i data-lucide="plus" class="w-3.5 h-3.5 text-blue-500"></i> New Note
                     </button>
-                    <button type="button" onclick="toggleSelectionMode(); hideNewDropdown();"
+                    <button type="button" onclick="window.location.href='{% url 'notes:folder_create' %}'; hideNewDropdown();"
                         class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2 border-t border-slate-100 dark:border-slate-700/60">
-                        <i data-lucide="check-square" class="w-3.5 h-3.5 text-slate-400"></i> Select / Delete Notes
+                        <i data-lucide="folder" class="w-3.5 h-3.5 text-blue-500"></i> New Folder
                     </button>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                     {% for note in notes %}
                     <tr class="note-row-item hover:bg-slate-50 dark:hover:bg-slate-800/50 group transition cursor-pointer"
-                        onclick="openEditNoteModal('{{ note.pk }}', '{{ note.title|escapejs }}', '{{ note.folder.id }}', '{{ note.content_text|escapejs }}', [{% for t in note.tags.all %}'{{ t.id }}'{% if not forloop.last %},{% endif %}{% endfor %}])"
+                        onclick="window.location.href='{% url 'notes:note_detail' pk=note.pk %}'"
                         oncontextmenu="showNoteContextMenu(event, '{{ note.title|escapejs }}')"
                         data-note-title="{{ note.title|lower }}"
                         data-note-tags="{% for tag in note.tags.all %}{{ tag.name|lower }} {% endfor %}">
