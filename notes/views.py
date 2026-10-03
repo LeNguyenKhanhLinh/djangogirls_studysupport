@@ -378,6 +378,9 @@ def folder_detail(request, pk):
         owner=request.user
     )
 
+    folders = Folder.objects.filter(owner=request.user)
+    tags = Tag.objects.filter(owner=request.user)
+
     return render(
         request,
         "folders/folder_detail.html",
@@ -385,6 +388,8 @@ def folder_detail(request, pk):
             "folder": folder,
             "subfolders": subfolders,
             "notes": notes,
+            "folders": folders,
+            "tags": tags,
         }
     )
 @login_required
