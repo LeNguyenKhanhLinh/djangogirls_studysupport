@@ -212,6 +212,10 @@ def folder_create(request):
             if request.headers.get("x-requested-with") == "XMLHttpRequest":
                 return JsonResponse({"id": folder.id, "name": folder.name})
 
+            next_url = request.POST.get("next") or request.GET.get("next")
+            if next_url:
+                return redirect(next_url)
+
             if folder.parent:
                 return redirect("notes:folder_detail", pk=folder.parent.pk)
 
