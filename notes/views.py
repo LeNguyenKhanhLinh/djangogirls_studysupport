@@ -115,8 +115,15 @@ def note_create(request):
                 )
                 note.tags.set(valid_tags)
 
+            next_url = request.POST.get("next") or request.GET.get("next")
+            if next_url and not note.folder:
+                return redirect(next_url)
+
             if note.folder:
                 return redirect("notes:folder_detail", pk=note.folder.pk)
+
+            if next_url:
+                return redirect(next_url)
 
             return redirect("notes:note_list")
 
@@ -317,6 +324,7 @@ def note_bulk_delete(request):
 def folder_list(request):
     search_query = request.GET.get('q', '').strip()
     folders = Folder.objects.filter(owner=request.user, parent__isnull=True).prefetch_related('notes')
+    all_folders = Folder.objects.filter(owner=request.user).order_by('name')
     tags = Tag.objects.filter(owner=request.user)
     unfoldered_notes = Note.objects.filter(owner=request.user, folder__isnull=True).prefetch_related('tags')
     
@@ -339,6 +347,7 @@ def folder_list(request):
         "folders/folder_list.html", 
         {
             "folders": folders,
+            "all_folders": all_folders,
             "unfoldered_notes": unfoldered_notes,
             "tags": tags,
             "search_query": search_query,
