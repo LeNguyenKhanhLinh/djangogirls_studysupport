@@ -92,6 +92,8 @@ def note_create(request):
         if form.is_valid():
             note = form.save(commit=False)
             note.owner = request.user
+            if not note.title or not note.title.strip():
+                note.title = 'Untitled'
 
             folder_id = request.POST.get('folder') or request.GET.get('folder_id')
             if folder_id:
