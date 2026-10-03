@@ -15,16 +15,20 @@ import os
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-local-development-key")
 
-DEBUG = False
+DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = [
+env_hosts = [h.strip() for h in os.environ.get("ALLOWED_HOSTS", "").split(",") if h.strip()]
+default_hosts = [
     '127.0.0.1',
     'localhost',
+    '0.0.0.0',
     'pythonanywhere.com',
-    "djangogirls-czhd.onrender.com",
-    "127.0.0.1",
-    "localhost",
+    'djangogirls-czhd.onrender.com',
+    'djangogirls-studysupport.onrender.com',
 ]
+ALLOWED_HOSTS = env_hosts if env_hosts else default_hosts
+if DEBUG and '*' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('*')
 
 
 # ================= APPLICATIONS =================
@@ -166,10 +170,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Allow large payloads (e.g. rich text study notes, batch files, folder creation) up to 50MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50 MB
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
-import os
-
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 CSRF_TRUSTED_ORIGINS = [
     "https://djangogirls-studysupport.onrender.com",
+    "https://djangogirls-czhd.onrender.com",
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
 ]

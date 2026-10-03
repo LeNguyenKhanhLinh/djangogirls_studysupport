@@ -19,12 +19,15 @@
             <!-- Search Form (by Title or Tag) -->
             <form method="GET" action="{% url 'notes:note_list' %}" class="relative flex items-center">
                 <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 text-slate-400"></i>
-                <input type="text" name="q" id="note-search-input" value="{{ search_query }}" onkeyup="filterNotesRealtime(this.value)" placeholder="Search by title or tag..." 
-                       class="pl-8 pr-7 py-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-500 w-48 focus:w-64 transition-all">
+                <input type="text" name="q" id="note-search-input" value="{{ search_query }}"
+                    onkeyup="filterNotesRealtime(this.value)" placeholder="Search by title or tag..."
+                    class="pl-8 pr-7 py-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-blue-500 w-48 focus:w-64 transition-all">
                 {% if search_query %}
-                    <a href="{% url 'notes:note_list' %}" class="absolute right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" title="Clear search">
-                        <i data-lucide="x" class="w-3.5 h-3.5"></i>
-                    </a>
+                <a href="{% url 'notes:note_list' %}"
+                    class="absolute right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                    title="Clear search">
+                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                </a>
                 {% endif %}
             </form>
 
@@ -32,25 +35,29 @@
 
             <!-- Sort Dropdown Menu (3 Horizontal Bars Icon) -->
             <div class="relative inline-block text-left">
-                <button type="button" onclick="toggleSortDropdown(event)" class="p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center" title="Sort Notes">
+                <button type="button" onclick="toggleSortDropdown(event)"
+                    class="p-1.5 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center"
+                    title="Sort Notes">
                     <i data-lucide="align-justify" class="w-4 h-4"></i>
                 </button>
 
                 <!-- Sort Options Dropdown -->
-                <div id="sort-dropdown-menu" class="hidden absolute right-0 mt-1 w-40 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl py-1 z-30 text-xs">
-                    <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div id="sort-dropdown-menu"
+                    class="hidden absolute right-0 mt-1 w-40 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl py-1 z-30 text-xs">
+                    <div
+                        class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                         Sort by
                     </div>
-                    <a href="?sort=recently{% if search_query %}&q={{ search_query }}{% endif %}" 
-                       class="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition font-medium {% if selected_sort == 'recently' %}text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-slate-700/50{% endif %}">
+                    <a href="?sort=recently{% if search_query %}&q={{ search_query }}{% endif %}"
+                        class="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition font-medium {% if selected_sort == 'recently' %}text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-slate-700/50{% endif %}">
                         <i data-lucide="clock" class="w-3.5 h-3.5"></i> Recently
                     </a>
-                    <a href="?sort=az{% if search_query %}&q={{ search_query }}{% endif %}" 
-                       class="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition font-medium {% if selected_sort == 'az' %}text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-slate-700/50{% endif %}">
+                    <a href="?sort=az{% if search_query %}&q={{ search_query }}{% endif %}"
+                        class="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition font-medium {% if selected_sort == 'az' %}text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-slate-700/50{% endif %}">
                         <i data-lucide="arrow-down-a-z" class="w-3.5 h-3.5"></i> A - Z
                     </a>
-                    <a href="?sort=za{% if search_query %}&q={{ search_query }}{% endif %}" 
-                       class="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition font-medium {% if selected_sort == 'za' %}text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-slate-700/50{% endif %}">
+                    <a href="?sort=za{% if search_query %}&q={{ search_query }}{% endif %}"
+                        class="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition font-medium {% if selected_sort == 'za' %}text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-slate-700/50{% endif %}">
                         <i data-lucide="arrow-up-z-a" class="w-3.5 h-3.5"></i> Z - A
                     </a>
                 </div>
@@ -58,21 +65,27 @@
 
             <!-- New Note Split Button with Dropdown -->
             <div class="relative inline-block text-left">
-                <div class="inline-flex rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition overflow-hidden divide-x divide-blue-500">
-                    <button type="button" onclick="openNoteModal()" class="px-3 py-1.5 flex items-center gap-1 hover:bg-blue-700 transition focus:outline-none">
+                <div
+                    class="inline-flex rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium transition overflow-hidden divide-x divide-blue-500">
+                    <button type="button" onclick="openNoteModal()"
+                        class="px-3 py-1.5 flex items-center gap-1 hover:bg-blue-700 transition focus:outline-none">
                         <span>New</span>
                     </button>
-                    <button type="button" onclick="toggleNewDropdown(event)" class="px-1.5 py-1.5 hover:bg-blue-700 transition focus:outline-none" title="More options">
+                    <button type="button" onclick="toggleNewDropdown(event)"
+                        class="px-1.5 py-1.5 hover:bg-blue-700 transition focus:outline-none" title="More options">
                         <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
                     </button>
                 </div>
-                
+
                 <!-- Dropdown Menu -->
-                <div id="new-dropdown-menu" class="hidden absolute right-0 mt-1 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 z-30 text-xs">
-                    <button type="button" onclick="openNoteModal(); hideNewDropdown();" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2">
+                <div id="new-dropdown-menu"
+                    class="hidden absolute right-0 mt-1 w-44 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg py-1 z-30 text-xs">
+                    <button type="button" onclick="openNoteModal(); hideNewDropdown();"
+                        class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2">
                         <i data-lucide="plus" class="w-3.5 h-3.5 text-blue-500"></i> New Note
                     </button>
-                    <button type="button" onclick="toggleSelectionMode(); hideNewDropdown();" class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2 border-t border-slate-100 dark:border-slate-700/60">
+                    <button type="button" onclick="toggleSelectionMode(); hideNewDropdown();"
+                        class="w-full text-left px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-2 border-t border-slate-100 dark:border-slate-700/60">
                         <i data-lucide="check-square" class="w-3.5 h-3.5 text-slate-400"></i> Select / Delete Notes
                     </button>
                 </div>
@@ -86,45 +99,59 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left text-sm border-collapse">
                 <thead>
-                    <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-400 text-xs font-normal select-none">
+                    <tr
+                        class="border-b border-slate-200 dark:border-slate-700 text-slate-400 text-xs font-normal select-none">
                         <th class="py-2 px-2 w-8 text-center select-checkbox-col hidden">
-                            <input type="checkbox" id="select-all-checkbox" onclick="toggleSelectAll(this)" class="rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 cursor-pointer">
+                            <input type="checkbox" id="select-all-checkbox" onclick="toggleSelectAll(this)"
+                                class="rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 cursor-pointer">
                         </th>
                         <th class="py-2 px-3 font-normal w-4/12">
-                            <div class="flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> Name</div>
+                            <div class="flex items-center gap-1.5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                                Name</div>
                         </th>
                         <th class="py-2 px-3 font-normal">
-                            <div class="flex items-center gap-1.5"><i data-lucide="tag" class="w-3.5 h-3.5"></i> Tags</div>
+                            <div class="flex items-center gap-1.5"><i data-lucide="tag" class="w-3.5 h-3.5"></i> Tags
+                            </div>
                         </th>
                         <th class="py-2 px-3 font-normal">
-                            <div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> Date Created</div>
+                            <div class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> Date
+                                Created</div>
                         </th>
                         <th class="py-2 px-3 font-normal">
-                            <div class="flex items-center gap-1.5"><i data-lucide="folder" class="w-3.5 h-3.5"></i> Folder</div>
+                            <div class="flex items-center gap-1.5"><i data-lucide="folder" class="w-3.5 h-3.5"></i>
+                                Folder</div>
                         </th>
                         <th class="py-2 px-3 font-normal text-right w-20">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                     {% for note in notes %}
-                    <tr class="note-row-item hover:bg-slate-50 dark:hover:bg-slate-800/50 group transition cursor-pointer" oncontextmenu="showNoteContextMenu(event, '{{ note.title|escapejs }}')" data-note-title="{{ note.title|lower }}" data-note-tags="{% for tag in note.tags.all %}{{ tag.name|lower }} {% endfor %}">
-                        <td class="py-2 px-2 text-center select-checkbox-col hidden">
-                            <input type="checkbox" name="note_ids" value="{{ note.id }}" onchange="updateBulkState()" class="note-item-checkbox rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 cursor-pointer">
+                    <tr class="note-row-item hover:bg-slate-50 dark:hover:bg-slate-800/50 group transition cursor-pointer"
+                        onclick="openEditNoteModal('{{ note.pk }}', '{{ note.title|escapejs }}', '{{ note.folder.id }}', '{{ note.content_text|escapejs }}', [{% for t in note.tags.all %}'{{ t.id }}'{% if not forloop.last %},{% endif %}{% endfor %}])"
+                        oncontextmenu="showNoteContextMenu(event, '{{ note.title|escapejs }}')"
+                        data-note-title="{{ note.title|lower }}"
+                        data-note-tags="{% for tag in note.tags.all %}{{ tag.name|lower }} {% endfor %}">
+                        <td class="py-2 px-2 text-center select-checkbox-col hidden" onclick="event.stopPropagation()">
+                            <input type="checkbox" name="note_ids" value="{{ note.id }}" onchange="updateBulkState()"
+                                class="note-item-checkbox rounded border-slate-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 cursor-pointer">
                         </td>
                         <td class="py-2 px-3 font-medium text-slate-800 dark:text-slate-200">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-500 shrink-0"></i>
-                                <button type="button" onclick="openEditNoteModal('{{ note.pk }}', '{{ note.title|escapejs }}', '{{ note.folder.id|default:'' }}', '{{ note.content_text|escapejs }}', [{% for t in note.tags.all %}'{{ t.id }}'{% if not forloop.last %},{% endif %}{% endfor %}])" class="hover:underline font-semibold text-left text-slate-800 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 transition">{{ note.title }}</button>
+                                <a href="{% url 'notes:note_detail' pk=note.pk %}" onclick="event.stopPropagation()"
+                                    class="hover:underline font-semibold text-left text-slate-800 dark:text-slate-100 hover:text-blue-600 dark:hover:text-blue-400 transition">{{
+                                    note.title }}</a>
                             </div>
                         </td>
-                        <td class="py-2 px-3">
+                        <td class="py-2 px-3" onclick="event.stopPropagation()">
                             <div class="flex flex-wrap gap-1">
                                 {% for tag in note.tags.all %}
-                                    <a href="{% url 'notes:note_list' %}?q={{ tag.name }}" class="inline-block {{ tag.color_class }} border text-[11px] px-2 py-0.5 rounded font-medium transition hover:scale-105">
-                                        {{ tag.name }}
-                                    </a>
+                                <a href="{% url 'notes:note_list' %}?q={{ tag.name }}"
+                                    class="inline-block {{ tag.color_class }} border text-[11px] px-2 py-0.5 rounded font-medium transition hover:scale-105">
+                                    {{ tag.name }}
+                                </a>
                                 {% empty %}
-                                    <span class="text-slate-300 dark:text-slate-600 text-xs">—</span>
+                                <span class="text-slate-300 dark:text-slate-600 text-xs">—</span>
                                 {% endfor %}
                             </div>
                         </td>
@@ -133,22 +160,32 @@
                         </td>
                         <td class="py-2 px-3">
                             {% if note.folder %}
-                                <span class="inline-block bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs px-2 py-0.5 rounded font-medium">
-                                    {{ note.folder.name }}
-                                </span>
+                            <a href="{% url 'notes:folder_detail' pk=note.folder.pk %}"
+                                onclick="event.stopPropagation()"
+                                class="inline-block bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs px-2 py-0.5 rounded font-medium hover:underline">
+                                {{ note.folder.name }}
+                            </a>
                             {% else %}
-                                <span class="text-slate-300 dark:text-slate-600 text-xs">—</span>
+                            <span class="text-slate-300 dark:text-slate-600 text-xs">—</span>
                             {% endif %}
                         </td>
-                        <td class="py-2 px-3 text-right">
-                            <div class="flex items-center justify-end gap-1 opacity-80 group-hover:opacity-100 transition">
-                                <button type="button" 
-                                        onclick="openEditNoteModal('{{ note.pk }}', '{{ note.title|escapejs }}', '{{ note.folder.id|default:'' }}', '{{ note.content_text|escapejs }}', [{% for t in note.tags.all %}'{{ t.id }}'{% if not forloop.last %},{% endif %}{% endfor %}])" 
-                                        class="p-1 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition" 
-                                        title="Edit Note">
+                        <td class="py-2 px-3 text-right" onclick="event.stopPropagation()">
+                            <div
+                                class="flex items-center justify-end gap-1 opacity-80 group-hover:opacity-100 transition">
+                                <a href="{% url 'notes:note_detail' pk=note.pk %}"
+                                    class="p-1 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition"
+                                    title="View Note & Fact-Check">
+                                    <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                                </a>
+                                <button type="button"
+                                    onclick="openEditNoteModal('{{ note.pk }}', '{{ note.title|escapejs }}', '{{ note.folder.id }}', '{{ note.content_text|escapejs }}', [{% for t in note.tags.all %}'{{ t.id }}'{% if not forloop.last %},{% endif %}{% endfor %}])"
+                                    class="p-1 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition"
+                                    title="Edit Note">
                                     <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
                                 </button>
-                                <a href="{% url 'notes:note_delete' pk=note.pk %}" class="p-1 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded transition" title="Delete Note">
+                                <a href="{% url 'notes:note_delete' pk=note.pk %}"
+                                    class="p-1 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded transition"
+                                    title="Delete Note">
                                     <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                                 </a>
                             </div>
@@ -166,12 +203,15 @@
         </div>
 
         <!-- Floating Bulk Delete Bar -->
-        <div id="bulk-action-bar" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/90 dark:bg-slate-800/90 text-white backdrop-blur-md px-5 py-2.5 rounded-full shadow-2xl z-40 flex items-center gap-4 text-xs select-none">
+        <div id="bulk-action-bar"
+            class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900/90 dark:bg-slate-800/90 text-white backdrop-blur-md px-5 py-2.5 rounded-full shadow-2xl z-40 flex items-center gap-4 text-xs select-none">
             <span id="selected-count-text" class="font-medium text-slate-200">0 selected</span>
-            <button type="submit" onclick="return confirm('Are you sure you want to delete the selected notes?');" class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-1 rounded-full font-medium transition flex items-center gap-1.5 shadow-sm">
+            <button type="submit" onclick="return confirm('Are you sure you want to delete the selected notes?');"
+                class="bg-red-600 hover:bg-red-700 text-white px-3.5 py-1 rounded-full font-medium transition flex items-center gap-1.5 shadow-sm">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete Selected
             </button>
-            <button type="button" onclick="toggleSelectionMode(false)" class="p-1 text-slate-400 hover:text-slate-200 transition">
+            <button type="button" onclick="toggleSelectionMode(false)"
+                class="p-1 text-slate-400 hover:text-slate-200 transition">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
         </div>
@@ -179,29 +219,42 @@
 
     <!-- Pagination -->
     {% if notes.paginator.count > 0 %}
-    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4 text-xs select-none">
+    <div
+        class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4 text-xs select-none">
         <span class="text-slate-400">
             Showing {{ notes.start_index }} to {{ notes.end_index }} of {{ notes.paginator.count }} notes
         </span>
         <div class="flex items-center gap-1">
             {% if notes.has_previous %}
-                <a href="?page={{ notes.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_folder %}&folder={{ selected_folder }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}" class="p-1.5 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition"><i data-lucide="chevron-left" class="w-4 h-4"></i></a>
+            <a href="?page={{ notes.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_folder %}&folder={{ selected_folder }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}"
+                class="p-1.5 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition"><i
+                    data-lucide="chevron-left" class="w-4 h-4"></i></a>
             {% else %}
-                <span class="p-1.5 rounded border border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed"><i data-lucide="chevron-left" class="w-4 h-4"></i></span>
+            <span
+                class="p-1.5 rounded border border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed"><i
+                    data-lucide="chevron-left" class="w-4 h-4"></i></span>
             {% endif %}
 
             {% for page_num in notes.paginator.page_range %}
-                {% if notes.number == page_num %}
-                    <span class="px-2.5 py-1 rounded bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 font-medium">{{ page_num }}</span>
-                {% else %}
-                    <a href="?page={{ page_num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_folder %}&folder={{ selected_folder }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}" class="px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">{{ page_num }}</a>
-                {% endif %}
+            {% if notes.number == page_num %}
+            <span
+                class="px-2.5 py-1 rounded bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 font-medium">{{
+                page_num }}</span>
+            {% else %}
+            <a href="?page={{ page_num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_folder %}&folder={{ selected_folder }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}"
+                class="px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">{{
+                page_num }}</a>
+            {% endif %}
             {% endfor %}
 
             {% if notes.has_next %}
-                <a href="?page={{ notes.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_folder %}&folder={{ selected_folder }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}" class="p-1.5 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition"><i data-lucide="chevron-right" class="w-4 h-4"></i></a>
+            <a href="?page={{ notes.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_folder %}&folder={{ selected_folder }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}"
+                class="p-1.5 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition"><i
+                    data-lucide="chevron-right" class="w-4 h-4"></i></a>
             {% else %}
-                <span class="p-1.5 rounded border border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed"><i data-lucide="chevron-right" class="w-4 h-4"></i></span>
+            <span
+                class="p-1.5 rounded border border-slate-100 dark:border-slate-800 text-slate-300 dark:text-slate-600 cursor-not-allowed"><i
+                    data-lucide="chevron-right" class="w-4 h-4"></i></span>
             {% endif %}
         </div>
     </div>
@@ -210,60 +263,83 @@
 
 <!-- SIDE PEEK MODAL (New Note) -->
 <div id="note-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex justify-end hidden drawer-backdrop">
-    <div class="w-full max-w-xl bg-white dark:bg-slate-900 h-full shadow-2xl p-8 flex flex-col border-l border-slate-200 dark:border-slate-800/80 rounded-l-3xl overflow-y-auto drawer-panel">
+    <div
+        class="w-full max-w-xl bg-white dark:bg-slate-900 h-full shadow-2xl p-8 flex flex-col border-l border-slate-200 dark:border-slate-800/80 rounded-l-3xl overflow-y-auto drawer-panel">
         <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-6">
             <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">New note</span>
-            <button onclick="closeNoteModal()" class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
+            <div class="flex items-center gap-2">
+                <a id="modal-full-page-link" href="#"
+                    class="hidden items-center gap-1.5 text-xs text-amber-600 hover:text-amber-700 dark:text-amber-400 font-semibold px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 transition shadow-sm"
+                    title="Open full note page to review and check accuracy">
+                    <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>
+                    <span>Check Accuracy</span>
+                </a>
+                <button onclick="closeNoteModal()"
+                    class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
         </div>
 
         <!-- Form submit to note_create -->
         <form method="POST" action="{% url 'notes:note_create' %}" class="space-y-6 flex-1 flex flex-col">
             {% csrf_token %}
             <div>
-                <input type="text" name="title" autocomplete="off" placeholder="Untitled" required class="w-full text-3xl font-bold border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-300 dark:placeholder-slate-600 bg-transparent dark:bg-transparent">
+                <input type="text" name="title" autocomplete="off" placeholder="Untitled" required
+                    class="w-full text-3xl font-bold border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-300 dark:placeholder-slate-600 bg-transparent dark:bg-transparent">
             </div>
 
             <!-- Page Properties -->
             <div class="space-y-3 text-xs text-slate-500 border-b border-slate-100 dark:border-slate-800 pb-6">
                 <div class="flex items-center gap-4">
-                    <span class="w-24 flex items-center gap-1.5 text-slate-400 font-medium"><i data-lucide="file-up" class="w-3.5 h-3.5 text-blue-500"></i> Import file</span>
-                    <label class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1 text-xs text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition font-medium select-none shadow-sm group">
-                        <i data-lucide="upload-cloud" class="w-3.5 h-3.5 text-blue-500 group-hover:scale-110 transition-transform"></i>
+                    <span class="w-24 flex items-center gap-1.5 text-slate-400 font-medium"><i data-lucide="file-up"
+                            class="w-3.5 h-3.5 text-blue-500"></i> Import file</span>
+                    <label
+                        class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1 text-xs text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition font-medium select-none shadow-sm group">
+                        <i data-lucide="upload-cloud"
+                            class="w-3.5 h-3.5 text-blue-500 group-hover:scale-110 transition-transform"></i>
                         <span>Upload .txt file</span>
                         <input type="file" accept=".txt" class="hidden" onchange="handleNoteModalFileImport(event)">
                     </label>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <span class="w-24 flex items-center gap-1.5 text-slate-400 font-medium"><i data-lucide="clock" class="w-3.5 h-3.5"></i> Date created</span>
+                    <span class="w-24 flex items-center gap-1.5 text-slate-400 font-medium"><i data-lucide="clock"
+                            class="w-3.5 h-3.5"></i> Date created</span>
                     <span class="text-slate-700 dark:text-slate-300 font-semibold">{% now "M d, Y" %}</span>
                 </div>
-                
+
                 <div class="flex items-center gap-4 relative">
-                    <span class="w-24 flex items-center gap-1.5 text-slate-400 font-medium"><i data-lucide="folder" class="w-3.5 h-3.5"></i> Class / Folder</span>
+                    <span class="w-24 flex items-center gap-1.5 text-slate-400 font-medium"><i data-lucide="folder"
+                            class="w-3.5 h-3.5"></i> Class / Folder</span>
                     <div class="flex items-center gap-2">
-                        <select name="folder" id="modal-folder-select" class="bg-slate-100/80 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 rounded-lg px-2.5 py-1 text-slate-700 dark:text-slate-200 focus:outline-none text-xs font-medium cursor-pointer shadow-sm">
+                        <select name="folder" id="modal-folder-select"
+                            class="bg-slate-100/80 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 rounded-lg px-2.5 py-1 text-slate-700 dark:text-slate-200 focus:outline-none text-xs font-medium cursor-pointer shadow-sm">
                             <option value="">Empty</option>
                             {% for folder in folders %}
-                                <option value="{{ folder.id }}">{{ folder.name }}</option>
+                            <option value="{{ folder.id }}">{{ folder.name }}</option>
                             {% endfor %}
                         </select>
-                        <button type="button" onclick="toggleFolderPopover(event)" class="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-slate-600 dark:text-slate-300 bg-slate-100/80 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition select-none font-medium">
+                        <button type="button" onclick="toggleFolderPopover(event)"
+                            class="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-slate-600 dark:text-slate-300 bg-slate-100/80 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition select-none font-medium">
                             <i data-lucide="plus" class="w-3 h-3 text-blue-500"></i>
                             <span>Add folder</span>
                         </button>
                     </div>
 
                     <!-- Quick Folder Create Popover -->
-                    <div id="folder-popover" class="hidden absolute left-28 top-8 z-50 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 p-3 space-y-2">
-                        <div class="text-xs font-semibold text-slate-700 dark:text-slate-200">Create New Folder / Class</div>
+                    <div id="folder-popover"
+                        class="hidden absolute left-28 top-8 z-50 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 p-3 space-y-2">
+                        <div class="text-xs font-semibold text-slate-700 dark:text-slate-200">Create New Folder / Class
+                        </div>
                         <div class="space-y-2">
-                            <input type="text" id="new-folder-input" placeholder="Folder / Class name..." class="w-full px-2.5 py-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+                            <input type="text" id="new-folder-input" placeholder="Folder / Class name..."
+                                class="w-full px-2.5 py-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
                             <div class="flex items-center justify-end gap-1.5 pt-1">
-                                <button type="button" onclick="toggleFolderPopover(event)" class="px-2.5 py-1 text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">Cancel</button>
-                                <button type="button" onclick="quickCreateFolder(event)" class="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition shadow-sm">Save</button>
+                                <button type="button" onclick="toggleFolderPopover(event)"
+                                    class="px-2.5 py-1 text-xs text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">Cancel</button>
+                                <button type="button" onclick="quickCreateFolder(event)"
+                                    class="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition shadow-sm">Save</button>
                             </div>
                         </div>
                     </div>
@@ -281,30 +357,27 @@
                             <div id="selected-tag-chips-list" class="flex flex-wrap gap-1.5 items-center"></div>
 
                             <!-- Popover Trigger Button -->
-                            <button type="button" 
-                                    onclick="toggleTagPopover(event)" 
-                                    class="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-slate-600 dark:text-slate-300 bg-slate-100/80 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition select-none font-medium">
+                            <button type="button" onclick="toggleTagPopover(event)"
+                                class="inline-flex items-center gap-1 px-2.5 py-1 text-xs text-slate-600 dark:text-slate-300 bg-slate-100/80 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/80 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition select-none font-medium">
                                 <i data-lucide="plus" class="w-3 h-3 text-blue-500"></i>
                                 <span>Add tag</span>
                             </button>
                         </div>
 
                         <!-- NOTION POPOVER MENU -->
-                        <div id="tag-popover" class="hidden absolute left-28 top-8 z-50 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 p-2.5 space-y-2">
+                        <div id="tag-popover"
+                            class="hidden absolute left-28 top-8 z-50 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 p-2.5 space-y-2">
                             <!-- Search / Create Tag Input -->
                             <div class="relative">
-                                <input type="text" 
-                                       id="new-tag-input" 
-                                       placeholder="Search or create tag..." 
-                                       onkeyup="filterOrPrepareTag(event)" 
-                                       class="w-full px-2.5 py-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
+                                <input type="text" id="new-tag-input" placeholder="Search or create tag..."
+                                    onkeyup="filterOrPrepareTag(event)"
+                                    class="w-full px-2.5 py-1 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-blue-500">
                             </div>
 
                             <!-- Quick Create Button -->
                             <div id="create-tag-btn-container" class="hidden">
-                                <button type="button" 
-                                        onclick="quickCreateTag(event)" 
-                                        class="w-full text-left px-2 py-1.5 text-xs text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700/60 rounded-lg flex items-center gap-1.5 font-medium">
+                                <button type="button" onclick="quickCreateTag(event)"
+                                    class="w-full text-left px-2 py-1.5 text-xs text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700/60 rounded-lg flex items-center gap-1.5 font-medium">
                                     <i data-lucide="plus" class="w-3.5 h-3.5"></i>
                                     <span>Create "<span id="new-tag-name-preview"></span>"</span>
                                 </button>
@@ -314,25 +387,29 @@
                             <div class="text-[11px] font-semibold text-slate-400 px-1 pt-1">Select an option</div>
                             <div id="tag-options-list" class="max-h-36 overflow-y-auto space-y-1 pr-1">
                                 {% for tag in tags %}
-                                    <label class="flex items-center justify-between px-2 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer select-none group">
-                                        <div class="flex items-center gap-2">
-                                            <input type="checkbox" name="tags" value="{{ tag.id }}" data-tag-name="{{ tag.name }}" onchange="updateSelectedTagsDisplay()" class="tag-checkbox hidden">
-                                            <span class="inline-block px-2 py-0.5 rounded-md text-xs border {{ tag.color_class }} font-medium">
-                                                {{ tag.name }}
-                                            </span>
-                                        </div>
-                                        <i data-lucide="check" class="w-3.5 h-3.5 text-blue-600 hidden check-icon"></i>
-                                    </label>
+                                <label
+                                    class="flex items-center justify-between px-2 py-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer select-none group">
+                                    <div class="flex items-center gap-2">
+                                        <input type="checkbox" name="tags" value="{{ tag.id }}"
+                                            data-tag-name="{{ tag.name }}" onchange="updateSelectedTagsDisplay()"
+                                            class="tag-checkbox hidden">
+                                        <span
+                                            class="inline-block px-2 py-0.5 rounded-md text-xs border {{ tag.color_class }} font-medium">
+                                            {{ tag.name }}
+                                        </span>
+                                    </div>
+                                    <i data-lucide="check" class="w-3.5 h-3.5 text-blue-600 hidden check-icon"></i>
+                                </label>
                                 {% empty %}
-                                    <div id="no-tags-msg" class="text-xs text-slate-400 px-2 py-1 italic">No tags found</div>
+                                <div id="no-tags-msg" class="text-xs text-slate-400 px-2 py-1 italic">No tags found
+                                </div>
                                 {% endfor %}
                             </div>
 
                             <!-- Footer: Manage Tags Button -->
                             <div class="border-t border-slate-100 dark:border-slate-700 pt-1.5 mt-1">
-                                <button type="button" 
-                                        onclick="openTagManager()" 
-                                        class="w-full text-left px-2 py-1 text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg flex items-center justify-between transition font-medium">
+                                <button type="button" onclick="openTagManager()"
+                                    class="w-full text-left px-2 py-1 text-xs text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg flex items-center justify-between transition font-medium">
                                     <span class="flex items-center gap-1.5">
                                         <i data-lucide="settings" class="w-3.5 h-3.5"></i> Manage tags
                                     </span>
@@ -345,58 +422,86 @@
             </div>
 
             <!-- Content Area with True WYSIWYG Rich Editor Container -->
-            <div class="flex-1 flex flex-col p-4 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/80 dark:border-slate-700/70 focus-within:border-blue-500/80 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
+            <div
+                class="flex-1 flex flex-col p-4 bg-slate-50/50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/80 dark:border-slate-700/70 focus-within:border-blue-500/80 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
                 <!-- Rich Text Formatting Toolbar (MS Teams / Notion Style Pill Box) -->
-                <div class="flex items-center gap-1 bg-slate-100/80 dark:bg-slate-800/80 p-1.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm text-slate-600 dark:text-slate-300 select-none mb-3">
-                    <button type="button" id="btn-format-bold" onclick="executeRichCommand('bold')" class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center w-7 h-7 transition shadow-none" title="Bold (In đậm)">
+                <div
+                    class="flex items-center gap-1 bg-slate-100/80 dark:bg-slate-800/80 p-1.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 shadow-sm text-slate-600 dark:text-slate-300 select-none mb-3">
+                    <button type="button" id="btn-format-bold" onclick="executeRichCommand('bold')"
+                        class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs flex items-center justify-center w-7 h-7 transition shadow-none"
+                        title="Bold (In đậm)">
                         B
                     </button>
-                    <button type="button" id="btn-format-italic" onclick="executeRichCommand('italic')" class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 italic font-serif text-xs flex items-center justify-center w-7 h-7 transition shadow-none" title="Italic (In nghiêng)">
+                    <button type="button" id="btn-format-italic" onclick="executeRichCommand('italic')"
+                        class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 italic font-serif text-xs flex items-center justify-center w-7 h-7 transition shadow-none"
+                        title="Italic (In nghiêng)">
                         I
                     </button>
-                    <button type="button" id="btn-format-underline" onclick="executeRichCommand('underline')" class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 underline text-xs flex items-center justify-center w-7 h-7 transition shadow-none" title="Underline (Gạch chân)">
+                    <button type="button" id="btn-format-underline" onclick="executeRichCommand('underline')"
+                        class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 underline text-xs flex items-center justify-center w-7 h-7 transition shadow-none"
+                        title="Underline (Gạch chân)">
                         U
                     </button>
-                    <button type="button" id="btn-format-strike" onclick="executeRichCommand('strikeThrough')" class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 line-through text-xs flex items-center justify-center w-7 h-7 transition shadow-none" title="Strikethrough (Gạch ngang)">
+                    <button type="button" id="btn-format-strike" onclick="executeRichCommand('strikeThrough')"
+                        class="p-1 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 line-through text-xs flex items-center justify-center w-7 h-7 transition shadow-none"
+                        title="Strikethrough (Gạch ngang)">
                         S
                     </button>
                     <div class="h-4 w-px bg-slate-300 dark:bg-slate-600 mx-1"></div>
-                    <button type="button" id="btn-format-ul" onclick="executeRichCommand('insertUnorderedList')" class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition" title="Bullet List">
+                    <button type="button" id="btn-format-ul" onclick="executeRichCommand('insertUnorderedList')"
+                        class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition"
+                        title="Bullet List">
                         <i data-lucide="list" class="w-3.5 h-3.5"></i>
                     </button>
-                    <button type="button" id="btn-format-ol" onclick="executeRichCommand('insertOrderedList')" class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition" title="Numbered List">
+                    <button type="button" id="btn-format-ol" onclick="executeRichCommand('insertOrderedList')"
+                        class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition"
+                        title="Numbered List">
                         <i data-lucide="list-ordered" class="w-3.5 h-3.5"></i>
                     </button>
-                    <button type="button" onclick="executeRichCommand('formatBlock', 'blockquote')" class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition" title="Quote">
+                    <button type="button" onclick="executeRichCommand('formatBlock', 'blockquote')"
+                        class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition"
+                        title="Quote">
                         <i data-lucide="quote" class="w-3.5 h-3.5"></i>
                     </button>
-                    <button type="button" onclick="executeRichCommand('createLink')" class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition" title="Insert Link">
+                    <button type="button" onclick="executeRichCommand('createLink')"
+                        class="p-1.5 rounded-lg hover:bg-white dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition"
+                        title="Insert Link">
                         <i data-lucide="link" class="w-3.5 h-3.5"></i>
                     </button>
                 </div>
 
                 <!-- True ContentEditable Editor Area -->
-                <div id="rich-note-editor" contenteditable="true" oninput="syncRichContent()" onkeyup="updateToolbarButtonStates()" onmouseup="updateToolbarButtonStates()" class="w-full flex-1 min-h-[180px] outline-none text-slate-700 dark:text-slate-200 text-sm leading-relaxed overflow-y-auto prose dark:prose-invert max-w-none"></div>
+                <div id="rich-note-editor" contenteditable="true" oninput="syncRichContent()"
+                    onkeyup="updateToolbarButtonStates()" onmouseup="updateToolbarButtonStates()"
+                    class="w-full flex-1 min-h-[180px] outline-none text-slate-700 dark:text-slate-200 text-sm leading-relaxed overflow-y-auto prose dark:prose-invert max-w-none">
+                </div>
                 <input type="hidden" name="content" id="hidden-note-content">
             </div>
 
             <div class="flex justify-end gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <button type="button" onclick="closeNoteModal()" class="px-4 py-2 text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition font-medium">Cancel</button>
-                <button type="submit" class="px-5 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all">Save note</button>
+                <button type="button" onclick="closeNoteModal()"
+                    class="px-4 py-2 text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition font-medium">Cancel</button>
+                <button type="submit"
+                    class="px-5 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all">Save
+                    note</button>
             </div>
         </form>
     </div>
 </div>
 
 <!-- TAG MANAGER MODAL (Nhúng trang tag_list.html vào iframe) -->
-<div id="tag-manager-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex justify-end hidden transition-opacity">
-    <div class="w-full max-w-lg bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col border-l border-slate-200 dark:border-slate-800">
+<div id="tag-manager-modal"
+    class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex justify-end hidden transition-opacity">
+    <div
+        class="w-full max-w-lg bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col border-l border-slate-200 dark:border-slate-800">
         <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
             <div class="flex items-center gap-2">
                 <i data-lucide="tags" class="w-4 h-4 text-blue-600 dark:text-blue-400"></i>
-                <span class="text-xs font-semibold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Tag Storage</span>
+                <span class="text-xs font-semibold text-slate-700 dark:text-slate-200 uppercase tracking-wider">Tag
+                    Storage</span>
             </div>
-            <button type="button" onclick="closeTagManager()" class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+            <button type="button" onclick="closeTagManager()"
+                class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
         </div>
@@ -412,6 +517,12 @@
         const modal = document.getElementById('note-modal');
         const form = modal.querySelector('form');
         const headerTitle = modal.querySelector('.pb-4 span');
+
+        const fullPageLink = document.getElementById('modal-full-page-link');
+        if (fullPageLink) {
+            fullPageLink.classList.add('hidden');
+            fullPageLink.classList.remove('inline-flex');
+        }
 
         if (headerTitle) headerTitle.textContent = 'New note';
         if (form) form.action = "{% url 'notes:note_create' %}";
@@ -448,6 +559,13 @@
         if (headerTitle) headerTitle.textContent = 'Edit note';
         if (form) form.action = '/notes/' + noteId + '/edit/?next={% url "notes:note_list" %}';
 
+        const fullPageLink = document.getElementById('modal-full-page-link');
+        if (fullPageLink) {
+            fullPageLink.href = '/notes/' + noteId + '/';
+            fullPageLink.classList.remove('hidden');
+            fullPageLink.classList.add('inline-flex');
+        }
+
         const titleInput = modal.querySelector('input[name="title"]');
         if (titleInput) titleInput.value = title;
 
@@ -472,12 +590,13 @@
             } else {
                 requestAnimationFrame(() => modal.classList.add('active'));
             }
+            if (window.lucide) lucide.createIcons();
         }
     }
 
     window.openNoteSidePeek = openEditNoteModal;
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         try {
             const urlParams = new URLSearchParams(window.location.search);
             const openNoteId = urlParams.get('open_note');
@@ -488,7 +607,7 @@
                     btn.click();
                 }
             }
-        } catch(e) {
+        } catch (e) {
             console.error("Auto open note error:", e);
         }
     });
@@ -522,7 +641,7 @@
     }
 
     // Close Popover when clicking outside
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         const popover = document.getElementById('tag-popover');
         const addBtn = e.target.closest('button[onclick="toggleTagPopover(event)"]');
         if (popover && !popover.contains(e.target) && !addBtn) {
@@ -581,7 +700,7 @@
         checkboxes.forEach(cb => {
             const tagId = cb.value;
             const tagName = cb.getAttribute('data-tag-name');
-            
+
             const checkIcon = cb.closest('label')?.querySelector('.check-icon');
             if (checkIcon) checkIcon.classList.remove('hidden');
 
@@ -669,16 +788,16 @@
             body: formData,
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
-        .then(res => res.json())
-        .then(data => {
-            const optionsList = document.getElementById('tag-options-list');
-            const noTagsMsg = document.getElementById('no-tags-msg');
-            if (noTagsMsg) noTagsMsg.remove();
+            .then(res => res.json())
+            .then(data => {
+                const optionsList = document.getElementById('tag-options-list');
+                const noTagsMsg = document.getElementById('no-tags-msg');
+                if (noTagsMsg) noTagsMsg.remove();
 
-            const newLabel = document.createElement('label');
-            newLabel.className = 'flex items-center justify-between px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer select-none group';
-            const newColorClass = getTagColorClass(data.id, data.name);
-            newLabel.innerHTML = `
+                const newLabel = document.createElement('label');
+                newLabel.className = 'flex items-center justify-between px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer select-none group';
+                const newColorClass = getTagColorClass(data.id, data.name);
+                newLabel.innerHTML = `
                 <div class="flex items-center gap-2">
                     <input type="checkbox" name="tags" value="${data.id}" data-tag-name="${data.name}" checked onchange="updateSelectedTagsDisplay()" class="tag-checkbox hidden">
                     <span class="inline-block px-2 py-0.5 rounded text-xs border ${newColorClass} font-medium">
@@ -687,19 +806,19 @@
                 </div>
                 <i data-lucide="check" class="w-3.5 h-3.5 text-blue-600 check-icon"></i>
             `;
-            
-            optionsList.appendChild(newLabel);
-            
-            input.value = '';
-            document.getElementById('create-tag-btn-container').classList.add('hidden');
-            document.querySelectorAll('#tag-options-list label').forEach(l => l.classList.remove('hidden'));
 
-            updateSelectedTagsDisplay();
-            if (window.lucide) lucide.createIcons();
-        })
-        .catch(err => {
-            console.error("Tag Creation Failed:", err);
-        });
+                optionsList.appendChild(newLabel);
+
+                input.value = '';
+                document.getElementById('create-tag-btn-container').classList.add('hidden');
+                document.querySelectorAll('#tag-options-list label').forEach(l => l.classList.remove('hidden'));
+
+                updateSelectedTagsDisplay();
+                if (window.lucide) lucide.createIcons();
+            })
+            .catch(err => {
+                console.error("Tag Creation Failed:", err);
+            });
     }
 
     // True ContentEditable Rich Editor Command Executer
@@ -769,7 +888,7 @@
             let isActive = false;
             try {
                 isActive = document.queryCommandState(cmd.name);
-            } catch(e) {}
+            } catch (e) { }
 
             if (isActive) {
                 btn.classList.add('bg-blue-600', 'text-white', 'shadow-sm', 'scale-105');
@@ -789,7 +908,7 @@
         }
     }
 
-    document.addEventListener('selectionchange', function() {
+    document.addEventListener('selectionchange', function () {
         const editor = document.getElementById('rich-note-editor');
         if (editor && (document.activeElement === editor || editor.contains(document.activeElement))) {
             updateToolbarButtonStates();
@@ -831,20 +950,20 @@
             body: formData,
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
-        .then(res => res.json())
-        .then(data => {
-            const select = document.getElementById('modal-folder-select');
-            if (select) {
-                const opt = document.createElement('option');
-                opt.value = data.id;
-                opt.textContent = data.name;
-                opt.selected = true;
-                select.appendChild(opt);
-            }
-            input.value = '';
-            toggleFolderPopover(null);
-        })
-        .catch(err => console.error("Folder creation failed:", err));
+            .then(res => res.json())
+            .then(data => {
+                const select = document.getElementById('modal-folder-select');
+                if (select) {
+                    const opt = document.createElement('option');
+                    opt.value = data.id;
+                    opt.textContent = data.name;
+                    opt.selected = true;
+                    select.appendChild(opt);
+                }
+                input.value = '';
+                toggleFolderPopover(null);
+            })
+            .catch(err => console.error("Folder creation failed:", err));
     }
 
     // New & Sort Dropdown & Bulk Selection Handlers
@@ -872,7 +991,7 @@
         if (menu) menu.classList.add('hidden');
     }
 
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
         hideNewDropdown();
         hideSortDropdown();
     });
@@ -909,11 +1028,14 @@
 </script>
 
 <!-- Custom Context Menu for Right Click on Note -->
-<div id="note-context-menu" class="hidden fixed bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl py-1 z-50 text-xs w-56 select-none">
-    <div class="px-3 py-1.5 border-b border-slate-100 dark:border-slate-700 text-[11px] font-semibold text-slate-400 dark:text-slate-500 truncate" id="context-note-title">
+<div id="note-context-menu"
+    class="hidden fixed bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl py-1 z-50 text-xs w-56 select-none">
+    <div class="px-3 py-1.5 border-b border-slate-100 dark:border-slate-700 text-[11px] font-semibold text-slate-400 dark:text-slate-500 truncate"
+        id="context-note-title">
         Selected Note
     </div>
-    <button type="button" onclick="goToAIPageWithNote()" class="w-full text-left flex items-center gap-2.5 px-3 py-2 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/50 font-medium transition">
+    <button type="button" onclick="goToAIPageWithNote()"
+        class="w-full text-left flex items-center gap-2.5 px-3 py-2 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/50 font-medium transition">
         <i data-lucide="sparkles" class="w-4 h-4 text-purple-500"></i>
         <span>Text with AI about this</span>
     </button>
@@ -925,11 +1047,11 @@
     function showNoteContextMenu(e, title) {
         e.preventDefault();
         selectedContextNoteTitle = title;
-        
+
         const menu = document.getElementById('note-context-menu');
         const titleEl = document.getElementById('context-note-title');
         if (titleEl) titleEl.textContent = title;
-        
+
         if (menu) {
             menu.style.left = Math.min(e.clientX, window.innerWidth - 230) + 'px';
             menu.style.top = Math.min(e.clientY, window.innerHeight - 100) + 'px';
@@ -946,7 +1068,7 @@
         }
     }
 
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         const menu = document.getElementById('note-context-menu');
         if (menu && !menu.contains(e.target)) {
             menu.classList.add('hidden');
