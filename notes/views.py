@@ -332,10 +332,14 @@ def folder_list(request):
     folders = Folder.objects.filter(owner=request.user, parent__isnull=True).prefetch_related('notes')
     all_folders = Folder.objects.filter(owner=request.user).order_by('name')
     tags = Tag.objects.filter(owner=request.user)
-    unfoldered_notes = Note.objects.filter(owner=request.user, folder__isnull=True).prefetch_related('tags')
+    unfoldered_notes = Note.objects.filter(owner=request.user, folder__isnull=True).exclude(template_type='pdf').exclude(title__icontains='.pdf').prefetch_related('tags')
     
     if search_query:
         folders = folders.filter(name__icontains=search_query)
+        unfoldered_notes = unfoldered_notes.filter(
+            Q(title__icontains=search_query) |
+            Q(tags__name__icontains=search_query)
+        ).distinct()
 
     for folder in folders:
         notes_data = []

@@ -258,6 +258,7 @@
         <!-- Form submit to note_create -->
         <form method="POST" action="{% url 'notes:note_create' %}" class="space-y-6 flex-1 flex flex-col">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{% url 'notes:folder_detail' pk=folder.pk %}">
             <div>
                 <input type="text" name="title" autocomplete="off" placeholder="Untitled"
                     class="w-full text-3xl font-bold border-none outline-none text-slate-800 dark:text-slate-100 placeholder-slate-300 dark:placeholder-slate-600 bg-transparent dark:bg-transparent">
@@ -505,7 +506,7 @@
         if (titleInput) titleInput.value = '';
 
         const folderSelect = modal.querySelector('select[name="folder"]');
-        if (folderSelect) folderSelect.value = '';
+        if (folderSelect) folderSelect.value = '{{ folder.id }}';
 
         const editor = document.getElementById('rich-note-editor');
         if (editor) editor.innerHTML = '';
@@ -531,7 +532,7 @@
         const headerTitle = modal.querySelector('.pb-4 span');
 
         if (headerTitle) headerTitle.textContent = 'Edit note';
-        if (form) form.action = '/notes/' + noteId + '/edit/?next={% url "notes:note_list" %}';
+        if (form) form.action = '/notes/' + noteId + '/edit/?next={% url "notes:folder_detail" pk=folder.pk %}';
 
         const fullPageLink = document.getElementById('modal-full-page-link');
         if (fullPageLink) {
