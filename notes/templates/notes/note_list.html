@@ -246,12 +246,10 @@
             {% for page_num in notes.paginator.page_range %}
             {% if notes.number == page_num %}
             <span
-                class="px-2.5 py-1 rounded bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 font-medium">{{
-                page_num }}</span>
+                class="px-2.5 py-1 rounded bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-900 font-medium">{{ page_num }}</span>
             {% else %}
             <a href="?page={{ page_num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if selected_folder %}&folder={{ selected_folder }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}"
-                class="px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">{{
-                page_num }}</a>
+                class="px-2.5 py-1 rounded border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">{{ page_num }}</a>
             {% endif %}
             {% endfor %}
 
