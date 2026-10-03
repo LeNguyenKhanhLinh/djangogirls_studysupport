@@ -43,17 +43,27 @@
         <span class="text-slate-700 dark:text-slate-300 font-medium">{{ note.created_at|date:"M d, Y, H:i" }}</span>
     </div>
     
-    <div class="flex items-center gap-4">
-        <span class="w-28 flex items-center gap-1.5 text-slate-400">
-            <i data-lucide="folder" class="w-3.5 h-3.5"></i> Folder
-        </span>
-        {% if note.folder %}
-            <a href="{% url 'notes:folder_detail' pk=note.folder.pk %}" class="inline-block bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 text-xs px-2 py-0.5 rounded font-medium hover:underline">
-                {{ note.folder.name }}
-            </a>
-        {% else %}
-            <span class="text-slate-400 italic">No Folder</span>
-        {% endif %}
+    {% if note.folder %}
+        <nav class="text-xs text-slate-500 dark:text-slate-400 mb-4" aria-label="breadcrumb">
+            <ol class="list-none p-0 inline-flex">
+                {% for f in note.folder_path %}
+                    <li class="flex items-center">
+                        <a href="{% url 'notes:folder_detail' pk=f.pk %}" class="text-blue-600 dark:text-blue-400 hover:underline">{{ f.name }}</a>
+                        {% if not forloop.last %}
+                            <span class="mx-2">&gt;</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+                <li class="flex items-center">
+                    <span class="mx-2">&gt;</span>
+                    <span class="font-semibold text-slate-800 dark:text-slate-200">{{ note.title }}</span>
+                </li>
+            </ol>
+        </nav>
+    {% else %}
+        <span class="text-slate-400 italic">No Folder</span>
+    {% endif %}
+
     </div>
 
     <div class="flex items-center gap-4">
@@ -125,10 +135,6 @@
 <div id="note-text-content" class="prose dark:prose-invert max-w-none text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
     {% if note.content.body %}
         {{ note.content.body|safe }}
-    {% elif note.content %}
-        {{ note.content|safe }}
-    {% else %}
-        <p class="text-slate-400 italic">No content in this note yet.</p>
     {% endif %}
 </div>
 {% endif %}
