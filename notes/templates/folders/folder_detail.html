@@ -95,9 +95,7 @@
             <a href="{% url 'notes:folder_detail' pk=sub.pk %}"
                 class="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/60 hover:border-blue-500 flex items-center gap-2.5 transition group">
                 <i data-lucide="folder" class="w-4.5 h-4.5 text-blue-500 group-hover:scale-110 transition"></i>
-                <span
-                    class="text-xs font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">{{
-                    sub.name }}</span>
+                <span class="text-xs font-medium text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">{{ sub.name }}</span>
             </a>
             {% endfor %}
         </div>
@@ -187,8 +185,7 @@
     <div
         class="w-full max-w-xl bg-white dark:bg-slate-900 h-full shadow-2xl p-8 flex flex-col border-l border-slate-200 dark:border-slate-800/80 rounded-l-3xl overflow-y-auto drawer-panel">
         <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-6">
-            <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">New subfolder in "{{ folder.name
-                }}"</span>
+            <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">New subfolder in "{{ folder.name }}"</span>
             <button type="button" onclick="closeFolderCreateSubfolderModal()"
                 class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                 <i data-lucide="x" class="w-5 h-5"></i>
@@ -214,21 +211,28 @@
             <div class="flex justify-end gap-2.5 pt-4 border-t border-slate-100 dark:border-slate-800 mt-auto">
                 <button type="button" onclick="closeFolderCreateSubfolderModal()"
                     class="px-4 py-2 text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition font-medium">Cancel</button>
-                <button type="submit"
-                    class="px-5 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all">Create
-                    Subfolder</button>
+                <button type="submit" class="px-5 py-2 text-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all">Create Subfolder</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
-
     function openFolderCreateSubfolderModal() {
-        document.getElementById('folder-create-subfolder-modal').classList.remove('hidden');
+        const modal = document.getElementById('folder-create-subfolder-modal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.remove('active');
+            requestAnimationFrame(() => requestAnimationFrame(() => modal.classList.add('active')));
+            if (window.lucide) lucide.createIcons();
+        }
     }
     function closeFolderCreateSubfolderModal() {
-        document.getElementById('folder-create-subfolder-modal').classList.add('hidden');
+        const modal = document.getElementById('folder-create-subfolder-modal');
+        if (modal) {
+            modal.classList.remove('active');
+            setTimeout(() => { if (!modal.classList.contains('active')) modal.classList.add('hidden'); }, 350);
+        }
     }
 </script>
 <!-- SIDE PEEK MODAL (New Note) -->
