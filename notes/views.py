@@ -316,7 +316,7 @@ def note_bulk_delete(request):
 @login_required
 def folder_list(request):
     search_query = request.GET.get('q', '').strip()
-    folders = Folder.objects.filter(owner=request.user).prefetch_related('notes')
+    folders = Folder.objects.filter(owner=request.user, parent__isnull=True).prefetch_related('notes')
     tags = Tag.objects.filter(owner=request.user)
     unfoldered_notes = Note.objects.filter(owner=request.user, folder__isnull=True).prefetch_related('tags')
     
