@@ -360,45 +360,6 @@ def folder_list(request):
         }
     )
 
-@login_required
-def folder_create(request):
-    if request.method == "POST":
-        form = FolderForm(
-            request.POST,
-            user=request.user
-        )
-
-        if form.is_valid():
-            folder = form.save(commit=False)
-            folder.owner = request.user
-            folder.save()
-
-            # Create initial note if provided inside New Folder modal
-            note_title = request.POST.get('note_title', '').strip()
-            note_content = request.POST.get('note_content', '').strip()
-            if note_title:
-                template_type = request.POST.get('template_type', 'blank')
-                if not template_type or template_type == 'blank':
-                    if '.pdf' in note_title.lower():
-                        template_type = 'pdf'
-                new_note = Note.objects.create(
-                    title=note_title,
-                    content={"body": note_content},
-                    template_type=template_type,
-                    owner=request.user,
-                    folder=folder
-                )
-                tag_ids = request.POST.getlist('note_tags')
-                if tag_ids:
-                    tag_objs = Tag.objects.filter(id__in=tag_ids, owner=request.user)
-                    new_note.tags.set(tag_objs)
-
-            if request.headers.get("x-requested-with") == "XMLHttpRequest":
-                return JsonResponse({"id": folder.id, "name": folder.name})
-
-            return redirect("notes:folder_list")
-
-    return redirect("notes:folder_list")
 
 @login_required
 def folder_detail(request, pk):
